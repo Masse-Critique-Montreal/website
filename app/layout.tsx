@@ -29,13 +29,6 @@ export const cooperBLack = localFont({
   display: 'swap', // Helps prevent layout shift (CLS)
 });
 
-export const metadata: Metadata = {
-  title: "Masse Critique Montréal",
-  description: "Masse critique"
-}
-
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
