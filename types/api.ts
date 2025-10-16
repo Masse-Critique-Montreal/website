@@ -9,6 +9,7 @@ export async function getHome(locale: 'en'|'fr'): Promise<Data.Entity<'api::home
 
     return (await (fetch(`${process.env.HOST}/api/home?${query}`, {
         method: 'GET',
+        cache: 'no-cache'
     })
         .then(r => r.json()))).data
 }
@@ -17,6 +18,7 @@ export async function getPages(): Promise<Data.Entity<'api::page.page'>[] | null
     const query = 'populate[blocks][on][blocks.text]=true&populate[blocks][on][blocks.note][populate][shapes]=true&populate[blocks][on][blocks.buttons][populate][buttons]=true&populate[blocks][on][blocks.image][populate][image]=true&locale=*'
      return (await (fetch(`${process.env.HOST}/api/pages?${query}`, {
         method: 'GET',
+        cache: 'no-cache'
     })
         .then(r => r.json()))).data
 }
@@ -27,6 +29,7 @@ export async function getPage(id:string, locale:'en'|'fr'): Promise<Data.Entity<
     
     return (await (fetch(`${process.env.HOST}/api/pages?${query}`, {
         method: 'GET',
+        cache: 'no-cache'
     })
         .then(r => r.json()))).data[0]
 }
