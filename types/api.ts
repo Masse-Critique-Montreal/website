@@ -35,7 +35,7 @@ export async function getPage(id:string, locale:'en'|'fr'): Promise<Data.Entity<
 }
 
 export async function getNavbar(locale:'en'|'fr'): Promise<Data.Entity<'api::navbar.navbar'> | null> {
-    const query = `populate=*`;
+    const query = `populate=*&locale=${locale}`;
     
     return (await (fetch(`${process.env.HOST}/api/navbar?${query}`, {
         method: 'GET',

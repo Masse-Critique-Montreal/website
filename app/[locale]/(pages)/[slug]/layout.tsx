@@ -6,7 +6,7 @@ export default async function Layout({ children, params }: PropsWithChildren<{ p
     const { slug, locale } = await params;
 
     const navbarData = await getNavbar(locale);
-    if (navbarData === null) return <></>
+    if (navbarData === null) return <>{children}</>
 
     return (
         <>
