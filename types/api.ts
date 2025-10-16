@@ -33,3 +33,13 @@ export async function getPage(id:string, locale:'en'|'fr'): Promise<Data.Entity<
     })
         .then(r => r.json()))).data[0]
 }
+
+export async function getNavbar(locale:'en'|'fr'): Promise<Data.Entity<'api::navbar.navbar'> | null> {
+    const query = `populate=*`;
+    
+    return (await (fetch(`${process.env.HOST}/api/navbar?${query}`, {
+        method: 'GET',
+        cache: 'no-cache'
+    })
+        .then(r => r.json()))).data
+}
