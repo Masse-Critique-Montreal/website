@@ -14,23 +14,24 @@ export function PartyBlock({
     rating,
     image,
     variant = "white",
-    imageAlignment = 'top'
+    imageAlignment = 'top',
+
 }: Data.Component<'blocks.political-party'>) {
     const variantStyles = {
         primary: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
         accent: "bg-accent text-accent-foreground",
         dark: "bg-dark text-dark-foreground",
-        white: "bg-background text-foreground",
+        white: ''// "bg-background text-foreground",
     }
 
     return (
-        <Card className={cn("w-full max-w-2xl rounded-none shadow-none flex flex-col", variantStyles[variant || 'white'])}>
-            <div className={cn("flex flex-1 p-6", imageAlignment === 'top' ? 'items-start' : '')}>
+        <Card className={cn("w-full border-none rounded-none pl-12 shadow-none flex flex-col items-stretch", variantStyles[variant || 'white'])}>
+            <div className={cn("flex flex-1 md:flex-row flex-col p-6 pb-0 lg:w-5xl xl:w-4xl max-w-4xl items-stretch", imageAlignment === 'top' ? 'items-start' : '')}>
 
 
                 {/* Left side: Headline and Description */}
-                <div className="flex-1 flex flex-col gap-4 pr-4">
+                <div className="flex-1 flex flex-col gap-4 pr-4 flex-grow">
                     <CardTitle className="text-lg md:text-xl text-balance">{headline}</CardTitle>
                     <CardDescription
                         className={cn("text-base leading-relaxed", variant !== "white" && "text-inherit opacity-90")}
@@ -38,18 +39,25 @@ export function PartyBlock({
                         {description && <CustomBlocksRenderer textSize={'text-base'} variant={variant || 'white'} content={description} />}
                     </CardDescription>
                 </div>
+                <div className={cn("flex md:flex-col items-start pt-12 md:pt-0 md:items-end justify-between gap-2 space-y-4", imageAlignment === 'top' ? '' : '')}>
 
-                {(
-                    <div className={cn("flex flex-col items-end justify-end gap-2", imageAlignment === 'top' ? 'flex-col-reverse' : '')}>
-
-                        <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold">{rating}/10</span>
-                        </div>
-                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden border border-current">
-                            <Image src={uri.img(image.url) || "/placeholder.svg"} alt={image.alternativeText || 'Party logo'} fill className="object-cover" />
-                        </div>
+                    <div className="flex md:items-center gap-2">
+                        <span className="text-lg">Note:</span>
+                        <span className="text-lg font-bold">{rating}/10</span>
                     </div>
-                )}
+                    {/* <div className="relative h-20 w-28 md:h-24 md:w-32 lg:h-28 lg:w-42 flex-shrink-0 overflow-hidden border border-current">
+                        <Image src={uri.img(image.url) || "/placeholder.svg"} alt={image.alternativeText || 'Party logo'} fill className="object-cover" />
+                    </div> */}
+
+                    <div className="relative aspect-[16/9] w-40 md:w-56 lg:w-64 flex-shrink-0 overflow-hidden border border-current">
+                        <Image
+                            src={uri.img(image.url) || "/placeholder.svg"}
+                            alt={image.alternativeText || 'Party logo'}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                </div>
             </div>
         </Card>
     )
