@@ -5,9 +5,9 @@ import Link from "next/link"
 import { ButtonWVariant } from "./blocks/button-block"
 import { ContentBlockProps } from "./blocks/content-block"
 
-export default function CustomBlocksRenderer(props: { variant: ContentBlockProps['bgColor'], content: BlocksContent }) {
+export default function CustomBlocksRenderer(props: { variant: ContentBlockProps['bgColor'], textSize?: string, content: BlocksContent }) {
     return <BlocksRenderer blocks={{
-      paragraph: ({ children }) => <p className="font-sans text-xl leading-relaxed text-wrap">
+      paragraph: ({ children }) => <p className={cn("font-sans leading-relaxed text-wrap", props.textSize|| 'text-xl')}>
         {children}
       </p>,
       heading: ({ children, level }) => {
@@ -26,6 +26,19 @@ export default function CustomBlocksRenderer(props: { variant: ContentBlockProps
       },
   
       link: ({ children, url }) => <Link className={cn(`underline wrap-anywhere`, {})} href={url}>{children}</Link>,
+
+      list: ({ children, format }) => {
+        if (format === 'ordered') {
+          return <ol className="list-decimal list-inside my-3 space-y-2">{children}</ol>
+        }
+        return <ul className="list-disc list-inside my-3 space-y-2">{children}</ul>
+      },
+
+      'list-item': ({ children }) => (
+        <li className="font-sans text-sm leading-snug text-wrap">
+          {children}
+        </li>
+      ),
   
     }} {...props} />
   }

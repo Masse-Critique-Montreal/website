@@ -9,6 +9,7 @@ import CustomBlocksRenderer from "@/components/BlockRenderer"
 import { BlocksContent } from "@strapi/blocks-react-renderer"
 import { ReactNode } from "react"
 import { Metadata } from "next"
+import { PartyBlock } from "@/components/blocks/political-party"
 
 export const dynamic = 'force-static';
 
@@ -84,6 +85,7 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
   const response = await getPage(slug, locale);
   if (response === null) return <>{JSON.stringify(response)}<ClientT /></>
   const { blocks } = response;
+  console.log(blocks)
   if (!blocks) return <></>
 
   return (
@@ -109,6 +111,10 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
             return <ContentBlock key={index} bgColor={block.style || 'secondary'}>
               <CustomBlocksRenderer variant={block.style || 'secondary'} content={block.content as BlocksContent} />
             </ContentBlock>
+          }
+          case 'blocks.political-party': {
+            
+            return <PartyBlock key={index} {...block}  />
           }
           case 'blocks.note': {
             if (block.text == null) return null;
