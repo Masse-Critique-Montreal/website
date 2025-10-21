@@ -31,7 +31,7 @@ export function Navbar({ title, buttons, bgColor = "background" }: NavbarProps) 
     return (
         <nav className={`w-full px-8 sm:px-12 py-7 pb-0 ${bgClasses[bgColor]}`}>
             <a href={`/`} className="cursor-pointer"><h3 className="font-sans max-w-24 font-semibold italic text-3xl">{title}</h3></a>
-            <div className="flex gap-2 sm:gap-3 py-6 sm:py-4">
+            <div className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-4">
                 {buttons && buttons.map((button, index) => (<Button
                     key={index}
                     size="sm"
