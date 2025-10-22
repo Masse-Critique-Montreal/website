@@ -56,7 +56,7 @@ function formatDateForGoogleCal(date: Date) {
 }
 
 
-export default function CalendarButton({ button }: { button: Data.Component<'inputs.button'> }) {
+export default function CalendarButton({ size='lg', button }: { size?:'sm'|'lg',button: Data.Component<'inputs.button'> }) {
     const getCalendarLink = () => {
         const cal_title = 'Masse Critique Montreal';
         const cal_description = 'Chaque mois, nous sommes des centaines de cyclistes prenant la rue pour une balade mani-festive afin de célébrer notre amour pour le vélo.' +
@@ -82,7 +82,7 @@ export default function CalendarButton({ button }: { button: Data.Component<'inp
 
     return (
         <Button
-            size="lg"
+            size={size}
 
             variant={button.variant}
             className="normal-case min-w-48 sm:min-w-none"

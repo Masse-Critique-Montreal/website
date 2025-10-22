@@ -36,7 +36,7 @@ export function Navbar({ title, buttons, bgColor = "background" }: NavbarProps) 
                 {buttons && buttons.map((button, index) => (
                     (button.calendar_link) ? (
 
-                        <CalendarButton key={index} button={button} />
+                        <CalendarButton key={index} size="sm" button={button} />
                     ) : (
                         button.href ? <Button
                             key={index}
