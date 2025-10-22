@@ -67,8 +67,10 @@ export default function CalendarButton({ button }: { button: Data.Component<'inp
         // Example for Montreal - specify actual event location
         const cal_location = "Monument to Sir George-Étienne Cartier, 4200 Av. du Parc, Montréal, QC H2W 1S8, Canada"; // or coordinates as a string
     
+        const TIMEZONE = 4; // GMT-4;
+
         const currentDate = new Date();
-        const cal_start = getLastFridayOfMonth(currentDate, 17, 0, 0);
+        const cal_start = getLastFridayOfMonth(currentDate, 17 + TIMEZONE, 0, 0);
         const cal_end = addHours(cal_start, 3);
     
         return `https://www.google.com/calendar/render?action=TEMPLATE&` +
