@@ -6,6 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { ButtonBlock, ButtonItem } from "./blocks/button-block"
 import { VariantProps } from "class-variance-authority"
 import { Data } from "@strapi/strapi"
+import CalendarButton from "./client/calendarButton"
 
 // interface ButtonItem {
 //   label: string
@@ -32,18 +33,26 @@ export function Navbar({ title, buttons, bgColor = "background" }: NavbarProps) 
         <nav className={`w-full px-8 sm:px-12 py-7 pb-0 ${bgClasses[bgColor]}`}>
             <a href={`/`} className="cursor-pointer"><h3 className="font-sans max-w-24 font-semibold italic text-3xl">{title}</h3></a>
             <div className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-4">
-                {buttons && buttons.map((button, index) => (<Button
-                    key={index}
-                    size="sm"
-                    // className="bg-primary text-primary-foreground hover:opacity-90 font-bold uppercase text-lg px-8"
+                {buttons && buttons.map((button, index) => (
+                    (button.calendar_link) ? (
 
-                    variant={button.variant}
-                    // className="bg-primary text-primary-foreground hover:opacity-90 font-semibold uppercase text-lg px-8 rounded-full"
-                    asChild
-                >
-                    <Link href={button.href || '#'}>{button.label}</Link>
-                </Button>))}
-                
+                        <CalendarButton key={index} button={button} />
+                    ) : (
+                        button.href ? <Button
+                            key={index}
+                            size="sm"
+                            // className="bg-primary text-primary-foreground hover:opacity-90 font-bold uppercase text-lg px-8"
+
+                            variant={button.variant}
+                            // className="bg-primary text-primary-foreground hover:opacity-90 font-semibold uppercase text-lg px-8 rounded-full"
+                            asChild
+                        >
+                            <Link href={button.href || '#'}>{button.label}</Link>
+                        </Button> : <></>
+
+                    )
+                ))}
+
             </div>
 
         </nav>
