@@ -85,7 +85,7 @@ export default function CalendarButton({ size='lg', button }: { size?:'sm'|'lg',
             size={size}
 
             variant={button.variant}
-            className="normal-case min-w-48 sm:min-w-none"
+            className={size === 'lg' ? "normal-case min-w-48 sm:min-w-none" : ""}
             asChild
         >
             <Link target="_blank" href={getCalendarLink() || button.href || '#'}>{button.label}</Link>
