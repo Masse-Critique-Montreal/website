@@ -17,8 +17,8 @@
   --secondary-foreground: oklch(1 0 0); /* White text on green */
   --muted: oklch(0.92 0.02 106);
   --muted-foreground: oklch(0.45 0 0);
-  --accent: #dbd49f; /* Vibrant coral/orange */
-  --accent-foreground: #010101;
+  --accent: hsl(52, 100%, 88%); /* Vibrant coral/orange */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.25 15); /* Bright red */
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.15 0 0); /* Black borders for flat design */
