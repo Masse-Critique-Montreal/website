@@ -26,12 +26,12 @@ export function PartyBlock({
     }
 
     return (
-        <Card className={cn("w-full border-none rounded-none pl-12 shadow-none flex flex-col items-stretch", variantStyles[variant || 'white'])}>
+        <Card className={cn("w-full border-none rounded-none pl-4 sm:pl-12 md:pl-16  shadow-none flex flex-col items-stretch", variantStyles[variant || 'white'])}>
             <div className={cn("flex flex-1 md:flex-row flex-col p-6 pb-0 lg:w-5xl xl:w-4xl max-w-4xl items-stretch", imageAlignment === 'top' ? 'items-start' : '')}>
 
 
                 {/* Left side: Headline and Description */}
-                <div className="flex-1 flex flex-col gap-4 pr-4 flex-grow">
+                <div className="flex-1 flex flex-col gap-4 pr-4flex-grow w-full">
                     <CardTitle className="text-lg md:text-xl text-balance">{headline}</CardTitle>
                     <CardDescription
                         className={cn("text-base leading-relaxed", variant !== "white" && "text-inherit opacity-90")}
@@ -39,7 +39,7 @@ export function PartyBlock({
                         {description && <CustomBlocksRenderer textSize={'text-base'} variant={variant || 'white'} content={description} />}
                     </CardDescription>
                 </div>
-                <div className={cn("flex md:flex-col items-start pt-12 md:pt-0 md:items-end justify-between gap-2 space-y-4", imageAlignment === 'top' ? '' : '')}>
+                <div className={cn("flex md:flex-col pt-12 md:pt-0 items-start justify-between gap-2 space-y-4 w-full md:w-auto", imageAlignment === 'top' ? '' : '')}>
 
                     <div className="flex md:items-center gap-2">
                         <span className="text-lg">Note:</span>
