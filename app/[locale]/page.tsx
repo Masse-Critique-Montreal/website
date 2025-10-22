@@ -9,6 +9,7 @@ import CustomBlocksRenderer from "@/components/BlockRenderer"
 import { BlocksContent } from "@strapi/blocks-react-renderer"
 import { ReactNode } from "react"
 import { Metadata } from "next"
+import { Data } from "@strapi/strapi"
 
 export const dynamic = 'force-static';
 
@@ -112,7 +113,7 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
             return <ButtonBlock
               key={index}
               bgColor={block.style || 'primary'}
-              buttons={block.buttons as ButtonWVariant[]}
+              buttons={block.buttons as Data.Component<'inputs.button'>[]}
             />
           }
           case 'blocks.note': {
