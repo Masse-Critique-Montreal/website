@@ -49,11 +49,13 @@ export function PartyBlock({
                         <Image src={uri.img(image.url) || "/placeholder.svg"} alt={image.alternativeText || 'Party logo'} fill className="object-cover" />
                     </div> */}
 
-                    <div className="relative aspect-[16/9] w-40 md:w-52 lg:w-56 flex-shrink-0 overflow-hidden ">
+                    <div className="relative aspect-auto w-40 md:w-52 lg:w-56 flex-shrink-0 overflow-hidden ">
                         <Image
                             src={uri.img(image.url) || "/placeholder.svg"}
                             alt={image.alternativeText || 'Party logo'}
-                            fill
+                    
+                            width={image.width}
+                            height={image.height}
                             className="object-cover"
                         />
                     </div>
