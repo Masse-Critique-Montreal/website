@@ -43,7 +43,7 @@ export function PartyBlock({
 
                     <div className="flex md:items-center gap-2">
                         <span className="text-lg">Note:</span>
-                        <span className="text-lg font-bold">{rating}/10</span>
+                        <span className="text-lg font-bold">{rating}/5</span>
                     </div>
                     {/* <div className="relative h-20 w-28 md:h-24 md:w-32 lg:h-28 lg:w-42 flex-shrink-0 overflow-hidden border border-current">
                         <Image src={uri.img(image.url) || "/placeholder.svg"} alt={image.alternativeText || 'Party logo'} fill className="object-cover" />
