@@ -10,6 +10,7 @@ import { BlocksContent } from "@strapi/blocks-react-renderer"
 import { ReactNode } from "react"
 import { Metadata } from "next"
 import { Data } from "@strapi/strapi"
+import NextLastFriday from "@/components/NextLastFriday"
 
 export const dynamic = 'force-static';
 
@@ -122,8 +123,14 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
             block.text.forEach((para, j) => {
               nodes = nodes.concat(para.children.map((elem, i: number) => {
                 const e = elem as { code: boolean, text: string };
-                if (e.code) return <span key={'elem' + i} className="text-secondary brightness-125">{e.text}</span>
-                else return e.text;
+
+                if (e.code && e.text.includes("[next-last-friday]")) 
+                  return <NextLastFriday key={'elem' + i} locale={locale} text={e.text}/>;
+
+                if (e.code) 
+                  return <span key={'elem' + i} className="text-secondary brightness-125">{e.text}</span>
+                
+                return e.text;
               }))
               nodes.push(<br key={'line-break_' + j} className="inline sm:hidden" />)
             })
