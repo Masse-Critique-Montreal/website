@@ -85,7 +85,6 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
   const response = await getPage(slug, locale);
   if (response === null) return <>{JSON.stringify(response)}<ClientT /></>
   const { blocks } = response;
-  console.log(blocks)
   if (!blocks) return <></>
 
   return (
