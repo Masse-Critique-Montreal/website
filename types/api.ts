@@ -29,7 +29,6 @@ export async function getPages(): Promise<Data.Entity<'api::page.page'>[] | null
     })
         .then(r => r.json())
         .then(r => {
-            console.log(r)
             return r
         })
     )).data
