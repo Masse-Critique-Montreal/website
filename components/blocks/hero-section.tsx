@@ -25,7 +25,7 @@ export async function HeroSection({ title, subtitle, locale }: HeroSectionProps)
           </h1>
         </div>
         {subtitle && (
-          <p className="font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl font-medium leading-tight">{
+          <p className="text-primary-foreground/90 font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mt-5 mb-1">{
             t.map((line, i) => {
               return <Fragment key={i}>{line}{((t.length > 1) && i !== t.length - 1) ? <br /> : <></>}</Fragment>
             })
