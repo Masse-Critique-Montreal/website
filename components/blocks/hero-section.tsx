@@ -14,7 +14,7 @@ export async function HeroSection({ title, subtitle, locale }: HeroSectionProps)
   const t = (subtitle || '').split('\\n');
 
   return (
-    <section className="relative min-h-[30vh] sm:min-h-[38vh] md:min-h-[42vh] xl:min-h-[54vh] flex items-start justify-start bg-primary text-primary-foreground px-10 py-16 sm:py-10 pb-9">
+    <section className="relative min-h-[30vh] sm:min-h-[38vh] md:min-h-[42vh] xl:min-h-[54vh] flex items-start justify-start bg-primary text-primary-foreground px-7 py-16 sm:py-10 pb-9">
 
       <LocaleToggle locale={locale} />
       {/* Hero content */}
