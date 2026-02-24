@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{slug:strin
   const publisher = "Masse Critique Montréal";
   const creator = "Matias Vazquez-Levi";
   const images = seo.images ? seo.images.map(image => ({
-    url: `${process.env.API_HOST}${image.url}`,
+    url: `${process.env.NEXT_PUBLIC_HOST}${image.url}`,
     width: image.width,
     height: image.height,
     alt: image.alternativeText || 'Masse Critique'
