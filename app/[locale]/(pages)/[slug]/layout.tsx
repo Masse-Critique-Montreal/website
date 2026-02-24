@@ -1,3 +1,4 @@
+import { Footer } from '@/components/blocks/footer';
 import { Navbar } from '@/components/navbar'
 import { getNavbar } from '@/types/api';
 import { PropsWithChildren } from 'react'
@@ -18,6 +19,7 @@ export default async function Layout({ children, params }: PropsWithChildren<{ p
             <main>
                 {children}
             </main>
+
         </>
     )
 }

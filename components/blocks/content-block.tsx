@@ -15,7 +15,7 @@ export function ContentBlock({ children, bgColor = "white" }: ContentBlockProps)
 
     return (
         <section className={`w-full px-8 sm:px-12 py-12 sm:py-16 ${bgColorMap[bgColor]}`}>
-            <div className="max-w-4xl overflow-hidden">{children}</div>
+            <div className="max-w-4xl overflow-hidden mb-2">{children}</div>
         </section>
     )
 }

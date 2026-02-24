@@ -95,6 +95,10 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
             return <ImageBlock
               key={index}
               src={uri.img(block.image ? block.image.url : '')}
+              info={block.pictureBy ? {
+                fullname: block.pictureBy || '',
+                link: block.pictureByLink || undefined,
+              } : undefined}
               alt="Community gathering"
               aspectRatio="wide"
             />
@@ -103,7 +107,7 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
             return <ButtonBlock
               key={index}
               bgColor={block.style || 'primary'}
-              buttons={block.buttons as ButtonWVariant[]}
+              buttons={block.buttons || []}
             />
           }
           case 'blocks.text': {

@@ -42,7 +42,7 @@ function addHours(date: Date, hours: number) {
 
 function formatDateForGoogleCal(date: Date) {
     // Google Calendar wants UTC time
-    function pad(n) { return n < 10 ? '0' + n : n; }
+    function pad(n:number) { return n < 10 ? '0' + n : n; }
     return [
         date.getUTCFullYear(),
         pad(date.getUTCMonth() + 1),

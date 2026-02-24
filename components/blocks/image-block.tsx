@@ -1,10 +1,85 @@
+"use client"
+
+import { useState, useCallback, useRef, Fragment } from "react"
+import { Info } from "lucide-react"
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover"
+import Link from "next/link"
+type InfoText = {
+  fullname: string;
+  link?: string;
+}
+
 interface ImageBlockProps {
   src: string
   alt: string
   aspectRatio?: "square" | "video" | "wide" | "portrait"
+  fullWidth?: boolean
+  /** Optional info text shown in a tooltip on hover (desktop) or tap (mobile) */
+  info?: (InfoText);
+
 }
 
-export function ImageBlock({ src, alt, aspectRatio = "video" }: ImageBlockProps) {
+function InfoButton({ info }: { info: InfoText }) {
+  const [open, setOpen] = useState(false)
+  const hoverTimeout = useRef<ReturnType<typeof setTimeout>>(null)
+
+  const handlePointerEnter = useCallback(() => {
+    if (window.matchMedia("(hover: hover)").matches) {
+      hoverTimeout.current = setTimeout(() => setOpen(true), 100)
+    }
+  }, [])
+
+  const handlePointerLeave = useCallback(() => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current)
+      hoverTimeout.current = null
+    }
+    if (window.matchMedia("(hover: hover)").matches) {
+      setOpen(false)
+    }
+  }, [])
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+          aria-label="More information"
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+        >
+          <Info className="h-4 w-4" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        side="right"
+        align="center"
+        className="w-auto max-w-64 rounded-md px-3 py-1.75 ml-1 text-sm"
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+      >
+        Picture by {
+          info.link ? (
+            <Link className="underline font-semibold text-secondary" href={info.link}>{info.fullname}</Link>
+          ) : info.fullname
+        }
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+export function ImageBlock({
+  src,
+  alt,
+  aspectRatio = "video",
+  info,
+  fullWidth = true,
+}: ImageBlockProps) {
   const aspectClasses = {
     square: "aspect-square",
     video: "aspect-video",
@@ -13,10 +88,28 @@ export function ImageBlock({ src, alt, aspectRatio = "video" }: ImageBlockProps)
   }
 
   return (
-    <section>
-      <div className={`w-full  ${aspectClasses[aspectRatio]} overflow-hidden`}>
-        <img src={src || "/placeholder.svg"} alt={alt} className="brightness-105 w-full h-full object-cover" />
+    <section className="relative">
+      <div
+        className={`relative w-full overflow-hidden after:absolute after:inset-0 after:bg-secondary/5 ${fullWidth
+          ? "h-[36vh] sm:h-auto sm:max-h-[60vh]"
+          : aspectClasses[aspectRatio]
+          }`}
+      >
+        <img
+          src={src || "/placeholder.svg"}
+          alt={alt}
+          className={`w-full ${fullWidth
+            ? "h-full object-cover"
+            : "h-full object-cover"
+            }`}
+        />
+
       </div>
+        {info && (
+          <div className="absolute bottom-4 left-4">
+            <InfoButton info={info} />
+          </div>
+        )}
     </section>
   )
 }

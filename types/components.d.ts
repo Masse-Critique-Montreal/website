@@ -34,6 +34,8 @@ export interface BlocksImage extends Struct.ComponentSchema {
   };
   attributes: {
     image: Schema.Attribute.Media<'images' | 'files'>;
+    pictureBy: Schema.Attribute.String;
+    pictureByLink: Schema.Attribute.String;
   };
 }
 
@@ -65,7 +67,7 @@ export interface BlocksPoliticalParty extends Struct.ComponentSchema {
     imageAlignment: Schema.Attribute.Enumeration<['top', 'bottom']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'top'>;
-    rating: Schema.Attribute.Integer &
+    rating: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
         {
           max: 10;
@@ -149,6 +151,7 @@ export interface InputsButton extends Struct.ComponentSchema {
         'black',
         'destructive',
         'outline',
+        'outlineWhite',
         'secondary',
         'ghost',
         'link',

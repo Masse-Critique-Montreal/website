@@ -11,6 +11,7 @@ import { ReactNode } from "react"
 import { Metadata } from "next"
 import { Data } from "@strapi/strapi"
 import NextLastFriday from "@/components/NextLastFriday"
+import { TelemetryProvider } from "@/lib/telemetry"
 
 export const dynamic = 'force-static';
 
@@ -86,7 +87,11 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
   if (response === null || !response.Blocks) return null;
   
   return (
-    <div className="min-h-screen">
+    <>
+      <TelemetryProvider pageName="home">
+        <></>
+      </TelemetryProvider>
+      <div className="min-h-screen">
       {response.Blocks && response.Blocks.map((block, index) => {
         switch (block.__component) {
           case 'blocks.hero': {
@@ -101,6 +106,10 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
             return <ImageBlock
               key={index}
               src={uri.img(block.image ? block.image.url : '')}
+              info={block.pictureBy ? {
+                fullname: block.pictureBy || '',
+                link: block.pictureByLink || undefined,
+              } : undefined}
               alt="Community gathering"
               aspectRatio="wide"
             />
@@ -149,5 +158,7 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
         }
       })}
     </div>
+    </>
+    
   )
 }

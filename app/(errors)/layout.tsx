@@ -1,10 +1,9 @@
 import type React from "react"
-import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 //import { GeistMono } from "geist/font/mono"
 
 import { REM } from "next/font/google"
-import './globals.css'
+import '../globals.css'
 
 
 const libreFranklin = REM({
@@ -19,7 +18,7 @@ import localFont from 'next/font/local';
 export const cooperBLack = localFont({
   src: [
     {
-      path: '../public/fonts/CooperBlackStd.otf', // Adjust path based on your file location
+      path: '../../public/fonts/CooperBlackStd.otf', // Adjust path based on your file location
       weight: '400',
       style: 'normal',
     },
@@ -29,13 +28,13 @@ export const cooperBLack = localFont({
   display: 'swap', // Helps prevent layout shift (CLS)
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={`font-sans ${GeistSans.variable} ${cooperBLack.variable} ${libreFranklin.variable}`}>
         {children}
       </body>
