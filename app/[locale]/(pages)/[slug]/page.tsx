@@ -68,9 +68,9 @@ export async function generateMetadata({ params }: { params: Promise<{slug:strin
     alternates: {
       canonical: '/',
       languages: {
-        'en': `/en`,
-        'fr': `/fr`,
-        'x-default': `/fr`
+        'en': `${process.env.NEXT_PUBLIC_SITE_URL}/en`,
+        'fr': `${process.env.NEXT_PUBLIC_SITE_URL}/fr`,
+        'x-default': `${process.env.NEXT_PUBLIC_SITE_URL}/fr`
       }
     },
     robots: {
