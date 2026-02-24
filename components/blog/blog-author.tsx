@@ -14,7 +14,7 @@ export function BlogAuthor({ name, role, avatar, date }: BlogAuthorProps) {
     <div className="flex items-center gap-4">
       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
         <Image
-          src={`${process.env.HOST}${avatar.formats?.thumbnail?.url ?? avatar.url}`}
+          src={`${process.env.NEXT_PUBLIC_HOST}${avatar.formats?.thumbnail?.url ?? avatar.url}`}
           alt={name}
           fill
           className="object-cover"

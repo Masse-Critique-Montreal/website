@@ -3,7 +3,7 @@ import { Facebook, Instagram, MapPin } from "lucide-react";
 import Link from "next/link";
 
 export function Footer({ mode='site' }: { mode: 'blog'|'site'}) {
-    const styles = mode === 'blog' ? "w-full sm:w-1/3" : "w-full px-6 sm:px-12"
+    const styles = mode === 'blog' ? "w-full sm:w-1/3 px-6 sm:px-0" : "w-full px-6 sm:px-12"
     
     return (
         <footer className="pt-2.5 bg-primary text-primary-foreground w-full">

@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 
 function absoluteUrl(path: string) {
     if (path.startsWith('http')) return path;
-    return `${process.env.HOST}${path}`;
+    return `${process.env.NEXT_PUBLIC_HOST}${path}`;
 }
 
 export async function generateMetadata({
