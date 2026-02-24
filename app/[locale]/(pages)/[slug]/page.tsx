@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{slug:strin
     ],
     openGraph: {
       type: 'website',
-      url: `${process.env.SITE_URL}`,
+      url: `${process.env.SITE_URL}/${locale}/${slug}`,
       title: seo.title || '',
       description: seo.description || '',
       siteName: 'Masse Critique Montréal',
