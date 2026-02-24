@@ -105,6 +105,7 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
           case 'blocks.image': {
             return <ImageBlock
               key={index}
+              locale={locale}
               src={uri.img(block.image ? block.image.url : '')}
               info={block.pictureBy ? {
                 fullname: block.pictureBy || '',

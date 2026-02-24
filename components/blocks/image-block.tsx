@@ -20,10 +20,11 @@ interface ImageBlockProps {
   fullWidth?: boolean
   /** Optional info text shown in a tooltip on hover (desktop) or tap (mobile) */
   info?: (InfoText);
+  locale:string
 
 }
 
-function InfoButton({ info }: { info: InfoText }) {
+function InfoButton({ info, locale }: { info: InfoText, locale:string }) {
   const [open, setOpen] = useState(false)
   const hoverTimeout = useRef<ReturnType<typeof setTimeout>>(null)
 
@@ -63,7 +64,7 @@ function InfoButton({ info }: { info: InfoText }) {
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
       >
-        Picture by {
+        {locale === 'en' ? 'Picture by ' : 'Photo par '} {
           info.link ? (
             <Link className="underline font-semibold text-secondary" href={info.link}>{info.fullname}</Link>
           ) : info.fullname
@@ -78,6 +79,7 @@ export function ImageBlock({
   alt,
   aspectRatio = "video",
   info,
+  locale,
   fullWidth = true,
 }: ImageBlockProps) {
   const aspectClasses = {
@@ -107,7 +109,7 @@ export function ImageBlock({
       </div>
         {info && (
           <div className="absolute bottom-4 left-4">
-            <InfoButton info={info} />
+            <InfoButton info={info} locale={locale} />
           </div>
         )}
     </section>

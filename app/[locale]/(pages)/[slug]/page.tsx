@@ -94,6 +94,7 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
           case 'blocks.image': {
             return <ImageBlock
               key={index}
+              locale={locale}
               src={uri.img(block.image ? block.image.url : '')}
               info={block.pictureBy ? {
                 fullname: block.pictureBy || '',
