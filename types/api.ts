@@ -27,7 +27,7 @@ export async function getBlogPosts(): Promise<Data.Entity<'api::article.article'
         // 'populate[blocks][on][blocks.political-party]=true',
         'locale=*'
     ].join('&')
-    return (await (fetch(`${process.env.HOST}/api/articles?${query}`, {
+    return (await (fetch(`${process.env.NEXT_PUBLIC_HOST}/api/articles?${query}`, {
         method: 'GET',
         cache: 'no-cache'
     })
@@ -53,7 +53,7 @@ export async function getBlogPost(id: string, locale: 'en' | 'fr' | '*'): Promis
         `locale=${locale}`
     ].join('&');
 
-    return (await (fetch(`${process.env.HOST}/api/articles?${query}`, {
+    return (await (fetch(`${process.env.NEXT_PUBLIC_HOST}/api/articles?${query}`, {
         method: 'GET',
         cache: 'no-cache'
     })
