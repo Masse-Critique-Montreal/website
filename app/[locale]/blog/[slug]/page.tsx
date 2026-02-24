@@ -18,8 +18,7 @@ export const dynamic = 'force-static';
 
 
 export async function generateStaticParams() {
-    const posts = await getBlogPosts();
-    if (!posts) return;
+    const posts = await getBlogPosts() || [];
 
     return posts.map((post) => {
         return { locale: 'en', slug: post.slug }
