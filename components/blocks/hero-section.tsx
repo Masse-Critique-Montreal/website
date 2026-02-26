@@ -14,13 +14,13 @@ export async function HeroSection({ title, subtitle, locale }: HeroSectionProps)
   const t = (subtitle || '').split('\\n');
 
   return (
-    <section className="relative min-h-[30vh] sm:min-h-[38vh] md:min-h-[42vh] xl:min-h-[54vh] flex items-start justify-start bg-primary text-primary-foreground px-7 py-16 sm:py-10 pb-9">
+    <section className="relative min-h-[30vh] sm:min-h-[32vh] md:min-h-[32vh] xl:min-h-[40vh] flex items-start justify-start bg-primary text-primary-foreground px-7 py-16 sm:py-10 pb-9">
 
       <LocaleToggle locale={locale} />
       {/* Hero content */}
       <div className={cn("mt-8 sm:mt-16")}>
-        <div className="max-w-1/3 xl:max-w-2xl">
-          <h1 className="font-sans uppercase italic text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-4 text-balance">
+        <div className="max-w-1/4 xl:max-w-xl">
+          <h1 className="font-sans uppercase italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold leading-[1.05] mb-4 text-balance">
             {title}
           </h1>
         </div>
