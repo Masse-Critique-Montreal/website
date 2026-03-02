@@ -46,11 +46,10 @@ export async function generateMetadata({
     const originalLocale = blogPost.locale || 'fr';
     const image = blogPost.image as StrapiImage | null;
 
-    const title = blogPost.title ?  `${blogPost.title} | ${
-        locale === 'fr' ? 
-        'Masse Critique Montreal' :
-        'Critical Mass Montreal'
-    }`: '';
+    const title = blogPost.title ? `${blogPost.title} | ${locale === 'fr' ?
+            'Masse Critique Montreal' :
+            'Critical Mass Montreal'
+        }` : '';
     const description = blogPost.short_description ?? blogPost.long_description ?? '';
     const canonical = `${process.env.SITE_URL}/${originalLocale}/blog/${slug}`;
 
@@ -72,17 +71,22 @@ export async function generateMetadata({
         title,
         description,
         authors,
+        icons: [
+            { url: '/favicon_128.ico', sizes: '128x128' },
+            { url: '/favicon_256.ico', sizes: '256x256' },
+            { url: '/favicon_512.ico', sizes: '512x512' }
+        ],
         alternates: isOriginal
-        ? {
-            canonical,
-            languages: {
-              [originalLocale]: canonical,
-              'x-default': canonical,
+            ? {
+                canonical,
+                languages: {
+                    [originalLocale]: canonical,
+                    'x-default': canonical,
+                },
+            }
+            : {
+                canonical,
             },
-          }
-        : {
-            canonical,
-          },
         openGraph: {
             title,
             description,
@@ -195,9 +199,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     <Separator className="my-8" />
 
                     {/* Bottom actions */}
-       
 
-                    <ShareCta/>
+
+                    <ShareCta />
                 </main>
 
             </div>
