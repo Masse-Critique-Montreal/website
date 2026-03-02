@@ -32,6 +32,49 @@ function absoluteUrl(path: string) {
     return `${process.env.NEXT_PUBLIC_HOST}${path}`;
 }
 
+function getBestOgImage(image:StrapiImage, formats: Record<string, StrapiImage>, host: string) {
+    const OG_IDEAL_WIDTH = 1200;
+    const OG_IDEAL_HEIGHT = 630;
+    const OG_IDEAL_RATIO = OG_IDEAL_WIDTH / OG_IDEAL_HEIGHT; // 1.91
+    const OG_MIN_WIDTH = 600;
+    const OG_MAX_WIDTH = 2000;
+    const OG_RATIO_TOLERANCE = 0.2; // acceptable ratio range: 1.71–2.11
+  
+    const candidates = Object.values({...formats, original: image}).filter((img) => {
+      const ratio = img.width / img.height;
+      const ratioDiff = Math.abs(ratio - OG_IDEAL_RATIO);
+      return (
+        img.width >= OG_MIN_WIDTH &&
+        img.width <= OG_MAX_WIDTH &&
+        ratioDiff <= OG_RATIO_TOLERANCE
+      );
+    });
+  
+    // If no candidates pass the ratio filter, fall back to all formats
+    const pool = candidates.length > 0 ? candidates : Object.values(formats);
+  
+    const scored = pool.map((img) => {
+      const ratio = img.width / img.height;
+      const ratioDiff = Math.abs(ratio - OG_IDEAL_RATIO);
+      const widthDiff = Math.abs(img.width - OG_IDEAL_WIDTH);
+  
+      // Ratio is the priority, width is the tiebreaker
+      const score = ratioDiff * 5000 + widthDiff;
+  
+      return { img, score };
+    });
+  
+    scored.sort((a, b) => a.score - b.score);
+    const best = scored[0].img;
+    console.log('CHOSEN IMAGE', best);
+    return {
+      url: `${host}${best.url}`,
+      width: best.width,
+      height: best.height,
+      alt: best.alternativeText || 'Masse Critique'
+    };
+  }
+
 export async function generateMetadata({
     params,
 }: {
@@ -44,13 +87,7 @@ export async function generateMetadata({
     if (!blogPost) return {};
 
     const originalLocale = blogPost.locale || 'fr';
-    const image = blogPost.image as StrapiImage | null;
-    const images = Object.values(blogPost.image.formats as Record<string, StrapiImage>).map((img: StrapiImage) => ({
-        url: `${process.env.NEXT_PUBLIC_HOST}${img.url}`,
-        width: img.width,
-        height: img.height,
-        alt: img.alternativeText || 'Masse Critique'
-      }));
+    const image = getBestOgImage(blogPost.image, blogPost.image.formats, process.env.NEXT_PUBLIC_HOST || '')
 
     const title = blogPost.title ? `${blogPost.title} | ${locale === 'fr' ?
             'Masse Critique Montreal' :
@@ -108,10 +145,9 @@ export async function generateMetadata({
                         url: absoluteUrl(image.url),
                         width: image.width,
                         height: image.height,
-                        alt: image.alternativeText || 'Thumbnail',
-                        type: image!.mime,
+                        alt: blogPost.image.alternativeText || 'Thumbnail',
+                        type: blogPost.image!.mime,
                     },
-                    ...images
                 ],
             } : {}),
         },
@@ -125,10 +161,9 @@ export async function generateMetadata({
                         url: absoluteUrl(image.url),
                         width: image.width,
                         height: image.height,
-                        alt: image.alternativeText || 'Thumbnail',
-                        type: image!.mime,
+                        alt: blogPost.image.alternativeText || 'Thumbnail',
+                        type: blogPost.image!.mime,
                     },
-                    ...images
                 ],
             } : {}),
         },
