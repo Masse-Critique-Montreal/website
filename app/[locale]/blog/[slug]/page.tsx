@@ -45,6 +45,12 @@ export async function generateMetadata({
 
     const originalLocale = blogPost.locale || 'fr';
     const image = blogPost.image as StrapiImage | null;
+    const images = Object.values(blogPost.image.formats as Record<string, StrapiImage>).map((img: StrapiImage) => ({
+        url: `${process.env.NEXT_PUBLIC_HOST}${img.url}`,
+        width: img.width,
+        height: img.height,
+        alt: img.alternativeText || 'Masse Critique'
+      }));
 
     const title = blogPost.title ? `${blogPost.title} | ${locale === 'fr' ?
             'Masse Critique Montreal' :
@@ -96,7 +102,7 @@ export async function generateMetadata({
             type: 'article',
             modifiedTime: blogPost.updatedAt ? new Date(blogPost.updatedAt).toISOString() : undefined,
             publishedTime: blogPost.publishedAt ? new Date(blogPost.publishedAt).toISOString() : undefined,
-            ...(image && {
+            ...(image ? {
                 images: [
                     {
                         url: absoluteUrl(image.url),
@@ -105,23 +111,26 @@ export async function generateMetadata({
                         alt: image.alternativeText || 'Thumbnail',
                         type: image!.mime,
                     },
+                    ...images
                 ],
-            }),
+            } : {}),
         },
         twitter: {
             card: 'summary_large_image',
             title,
             description,
-            ...(image && {
+            ...(image ? {
                 images: [
                     {
                         url: absoluteUrl(image.url),
                         width: image.width,
                         height: image.height,
                         alt: image.alternativeText || 'Thumbnail',
+                        type: image!.mime,
                     },
+                    ...images
                 ],
-            }),
+            } : {}),
         },
         robots: {
             index: isOriginal,
