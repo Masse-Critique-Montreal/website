@@ -179,7 +179,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     {/* Meta row + separator */}
                     <div className="mt-6 mb-6">
                         <BlogMeta
-                            readTime={8}
+                            readTime={blogPost.readTimeMin || 2}
                             publishedAt={new Date(blogPost.publishedAt || blogPost.createdAt || new Date())}
                             shareTitle={blogPost.short_description || ''}
                             locale={locale}
