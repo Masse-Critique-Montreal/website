@@ -45,12 +45,12 @@ export function ShareCta({ locale, shareUrl, shareTitle }: ShareCtaProps) {
                 {copied ? (
                     <>
                         <Check className="h-4 w-4" />
-                        <span>Copied</span>
+                        <span>{locale === 'en' ? 'Copied' : 'Copié'}</span>
                     </>
                 ) : (
                     <>
                         <Share2 className="h-4 w-4" />
-                        <span>Share</span>
+                        <span>{locale === 'en' ? 'Share' : 'Partager'}</span>
                     </>
                 )}
             </button>
