@@ -27,12 +27,12 @@ export async function generateStaticParams() {
     }));
 }
 
-function absoluteUrl(path: string) {
+export function absoluteUrl(path: string) {
     if (path.startsWith('http')) return path;
     return `${process.env.NEXT_PUBLIC_HOST}${path}`;
 }
 
-function getBestOgImage(image:StrapiImage, formats: Record<string, StrapiImage>, host: string) {
+export function getBestOgImage(image:StrapiImage, formats: Record<string, StrapiImage>, host: string) {
     const OG_IDEAL_WIDTH = 1200;
     const OG_IDEAL_HEIGHT = 630;
     const OG_IDEAL_RATIO = OG_IDEAL_WIDTH / OG_IDEAL_HEIGHT; // 1.91

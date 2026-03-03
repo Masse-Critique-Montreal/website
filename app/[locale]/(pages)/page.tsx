@@ -12,6 +12,7 @@ import { Metadata } from "next"
 import { Data } from "@strapi/strapi"
 import NextLastFriday from "@/components/NextLastFriday"
 import { TelemetryProvider } from "@/lib/telemetry"
+import { absoluteUrl, getBestOgImage } from "../blog/[slug]/page"
 
 export const dynamic = 'force-static';
 
@@ -41,6 +42,12 @@ export async function generateMetadata({ params }: { params: Promise<{locale:'en
     alt: image.alternativeText || 'Masse Critique'
   })): [];
 
+  if (!seo.images) {
+    throw new Error("No seo thumbnails!!!");
+  }
+  
+  const image = getBestOgImage(seo.images[0], seo.images[0].formats, process.env.NEXT_PUBLIC_HOST || '')
+
   return {
     title: seo.title,
     description: seo.description,
@@ -57,13 +64,33 @@ export async function generateMetadata({ params }: { params: Promise<{locale:'en
       title: seo.title || '',
       description: seo.description || '',
       siteName: 'Masse Critique Montréal',
-      images
+      ...(image && seo.images ? {
+        images: [
+            {
+                url: absoluteUrl(image.url),
+                width: image.width,
+                height: image.height,
+                alt: seo.images[0].alternativeText || 'Thumbnail',
+                type: seo.images[0]!.mime,
+            },
+        ],
+    } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       site: publisher,
       creator,
-      images
+      ...(image && seo.images ? {
+        images: [
+            {
+                url: absoluteUrl(image.url),
+                width: image.width,
+                height: image.height,
+                alt: seo.images[0].alternativeText || 'Thumbnail',
+                type: seo.images[0]!.mime,
+            },
+        ],
+    } : {}),
     },
     alternates: {
       canonical: '/',
