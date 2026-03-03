@@ -34,7 +34,7 @@ export function ShareCta({ locale, shareUrl, shareTitle }: ShareCtaProps) {
             <p className="text-sm text-muted-foreground">
                 {locale === 'en' ? 
                 'Enjoyed this article? Share it with others.' : 
-                'Cet article vous a plu ? Partagez-le !'}
+                'Aimé cet article? Partagez-le !'}
             </p>
             <button
                 type="button"
