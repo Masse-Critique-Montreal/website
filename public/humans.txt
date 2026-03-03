@@ -1,5 +1,5 @@
 /* TEAM */
-Developer: Matías Vazquez-Levi
+Developer: Matias Vazquez-Levi
 Members of Masse Critique
 
 /* THANKS */
