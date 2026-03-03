@@ -245,7 +245,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     {/* Bottom actions */}
 
 
-                    <ShareCta />
+                    <ShareCta locale={locale} />
                 </main>
 
             </div>

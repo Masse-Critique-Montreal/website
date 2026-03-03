@@ -4,13 +4,14 @@ import { useCallback, useState } from "react"
 import { Share2, Check } from "lucide-react"
 
 interface ShareCtaProps {
+    locale: string;
     /** URL to share (defaults to current page) */
     shareUrl?: string
     /** Title for the share dialog */
     shareTitle?: string
 }
 
-export function ShareCta({ shareUrl, shareTitle }: ShareCtaProps) {
+export function ShareCta({ locale, shareUrl, shareTitle }: ShareCtaProps) {
     const [copied, setCopied] = useState(false)
 
     const handleShare = useCallback(async () => {
@@ -31,7 +32,9 @@ export function ShareCta({ shareUrl, shareTitle }: ShareCtaProps) {
     return (
         <div className="flex items-center justify-between rounded-lg  px-5 py-4">
             <p className="text-sm text-muted-foreground">
-                Enjoyed this article? Share it with others.
+                {locale === 'en' ? 
+                'Enjoyed this article? Share it with others.' : 
+                'Cet article vous a plu ? Partagez-le !'}
             </p>
             <button
                 type="button"
