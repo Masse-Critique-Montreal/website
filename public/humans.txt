@@ -3,4 +3,4 @@ Developer: Matias Vazquez-Levi
 Members of Masse Critique
 
 /* THANKS */
-BQAM-E: Atelier communautaire de vélo de l'UQAM
+BQAM-E: Atelier communautaire de velo de l'UQAM
