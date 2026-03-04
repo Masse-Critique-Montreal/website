@@ -56,7 +56,7 @@ export function PostCard({ post, locale }: PostCardProps) {
                         <span className="text-xs font-medium text-foreground">{author_name}</span>
                     </div>
 
-                    <span className="text-xs text-muted-foreground">{new Date(post.publishedAt || new Date()).toLocaleDateString(locale, {
+                    <span className="text-xs text-muted-foreground">{new Date(post.createdAt || post.publishedAt || new Date()).toLocaleDateString(locale, {
                         month: "short",
                         year: "numeric",
                         day: "numeric"
