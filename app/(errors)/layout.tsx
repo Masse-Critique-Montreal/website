@@ -12,20 +12,18 @@ const libreFranklin = REM({
   display: "swap",
 })
 
-// src/ui/fonts.ts or app/fonts.ts
 import localFont from 'next/font/local';
 
 export const cooperBLack = localFont({
   src: [
     {
-      path: '../../public/fonts/CooperBlackStd.otf', // Adjust path based on your file location
+      path: '../../public/fonts/CooperBlackStd.otf',
       weight: '400',
       style: 'normal',
     },
-    // Add more objects for different weights/styles if available (e.g., bold, italic)
   ],
-  variable: '--font-cooper-black', // Optional: for use with CSS variables (e.g., Tailwind CSS)
-  display: 'swap', // Helps prevent layout shift (CLS)
+  variable: '--font-cooper-black',
+  display: 'swap', 
 });
 
 export default async function RootLayout({

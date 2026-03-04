@@ -19,7 +19,7 @@ export async function HeroSection({ title, subtitle, locale }: HeroSectionProps)
       <LocaleToggle locale={locale} />
       {/* Hero content */}
       <div className={cn("mt-8 sm:mt-16")}>
-        <div className="max-w-1/4 xl:max-w-1/2">
+        <div className="max-w-1/4 xl:max-w-1/3">
           <h1 className="font-sans uppercase italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold leading-[1.05] mb-4 text-balance">
             {title}
           </h1>
