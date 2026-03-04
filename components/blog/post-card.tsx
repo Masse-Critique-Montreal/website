@@ -12,7 +12,7 @@ interface PostCardProps {
 
 export function PostCard({ post, locale }: PostCardProps) {
     const author_name = post.author?.name; //post.author?.admin_user?.firstname + ' ' + post.author?.admin_user?.lastname;
-    console.log(post)
+
     const initials = (author_name || '')
         .split(" ")
         .map((n) => n[0])
