@@ -137,8 +137,8 @@ export async function generateMetadata({
             siteName: process.env.NEXT_PUBLIC_SITE_NAME,
             locale: originalLocale === 'fr' ? 'fr_FR' : 'en_US',
             type: 'article',
-            modifiedTime: blogPost.updatedAt ? new Date(blogPost.updatedAt).toISOString() : undefined,
-            publishedTime: blogPost.publishedAt ? new Date(blogPost.publishedAt).toISOString() : undefined,
+            modifiedTime: blogPost.publishedAt ? new Date(blogPost.publishedAt).toISOString() : undefined,
+            publishedTime: blogPost.createdAt ? new Date(blogPost.createdAt).toISOString() : undefined,
             ...(image ? {
                 images: [
                     {
@@ -215,11 +215,11 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
                     {/* Author + meta row */}
                     <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                        {blogPost.author && blogPost.publishedAt && <BlogAuthor
+                        {blogPost.author && blogPost.createdAt && <BlogAuthor
                             name={blogPost.author.name || (locale === 'en' ? 'Author' : 'Auteur')}
                             // role={blogPost.author.role}
                             avatar={blogPost.author.picture}
-                            date={new Date(blogPost.publishedAt).toDateString()}
+                            date={new Date(blogPost.createdAt).toDateString()}
                         />}
                         {/* <LikeButton initialLikes={blogPost.likes || 0} /> */}
                     </div>
@@ -228,7 +228,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
                     <div className="mt-6 mb-6">
                         <BlogMeta
                             readTime={blogPost.readTimeMin || 2}
-                            publishedAt={new Date(blogPost.publishedAt || blogPost.createdAt || new Date())}
+                            publishedAt={new Date(blogPost.createdAt || blogPost.createdAt || new Date())}
                             shareTitle={blogPost.short_description || ''}
                             locale={locale}
                         />
