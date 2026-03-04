@@ -48,7 +48,7 @@ export function PostCard({ post, locale }: PostCardProps) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Avatar className="h-6 w-6">
-                            <AvatarImage src={`${process.env.NEXT_PUBLIC_HOST}${post.author?.picture.formats.thumbnail.url || post.author?.picture.url}`} alt={author_name || 'Article Author'} />
+                            <AvatarImage src={`${process.env.NEXT_PUBLIC_HOST}${post.author ? (post.author?.picture.formats.thumbnail.url || post.author?.picture.url) : ''}`} alt={author_name || 'Article Author'} />
                             <AvatarFallback className="text-[10px] bg-muted text-muted-foreground">
                                 {initials}
                             </AvatarFallback>
