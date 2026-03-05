@@ -1,7 +1,7 @@
 import { getBlogPosts, getPages } from '@/types/api'
 import type { MetadataRoute } from 'next'
 
-//export const dynamic = 'force-static';
+export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 

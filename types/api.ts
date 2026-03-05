@@ -14,7 +14,7 @@ export async function getHome(locale: 'en' | 'fr'): Promise<Data.Entity<'api::ho
         .then(r => r.json()))).data
 }
 
-export async function getBlogPosts(): Promise<Data.Entity<'api::article.article'>[] | null> {
+export async function getBlogPosts(opt: Record<string, any> = {}): Promise<Data.Entity<'api::article.article'>[] | null> {
     const query = [
         'populate[image]=true',
         'populate[author][populate][picture]=true',
@@ -29,7 +29,8 @@ export async function getBlogPosts(): Promise<Data.Entity<'api::article.article'
     ].join('&')
     return (await (fetch(`${process.env.NEXT_PUBLIC_HOST}/api/articles?${query}`, {
         method: 'GET',
-        cache: 'no-cache'
+        cache: 'no-cache',
+        ...opt
     })
         .then(r => r.json())
         .then(r => {
@@ -60,7 +61,7 @@ export async function getBlogPost(id: string, locale: 'en' | 'fr' | '*'): Promis
         .then(r => r.json()))).data[0]
 }
 
-export async function getPages(): Promise<Data.Entity<'api::page.page'>[] | null> {
+export async function getPages(opt: Record<string, any> = {}): Promise<Data.Entity<'api::page.page'>[] | null> {
     const query = [
         'populate[blocks][on][blocks.text]=true',
         'populate[blocks][on][blocks.note][populate][shapes]=true',
@@ -71,7 +72,8 @@ export async function getPages(): Promise<Data.Entity<'api::page.page'>[] | null
     ].join('&')
     return (await (fetch(`${process.env.HOST}/api/pages?${query}`, {
         method: 'GET',
-        cache: 'no-cache'
+        cache: 'no-cache',
+        ...opt
     })
         .then(r => r.json())
         .then(r => {
