@@ -5,7 +5,7 @@ export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
-    const pages = (await getPages() || []);
+    const pages = (await getPages({ cache: 'force-cache '}) || []);
 
 
     // Group pages by documentId to pair en/fr versions
@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
 
-    const articlesSitemap = (await getBlogPosts() || []).map(b => ({
+    const articlesSitemap = (await getBlogPosts({ cache: 'force-cache '}) || []).map(b => ({
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/${b.locale}/blog/${b.slug}`,
         lastModified: b.publishedAt as Date,
         changeFrequency: 'monthly' as const,
