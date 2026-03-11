@@ -489,6 +489,13 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    readTimeMin: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<2>;
     short_description: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -564,6 +571,7 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
         'blocks.hero',
         'blocks.note',
         'blocks.buttons',
+        'blocks.link-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -639,6 +647,12 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    background: Schema.Attribute.Enumeration<['default', 'accent']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     blocks: Schema.Attribute.DynamicZone<
       [
         'blocks.text',
@@ -646,6 +660,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.note',
         'blocks.buttons',
         'blocks.political-party',
+        'blocks.link-section',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

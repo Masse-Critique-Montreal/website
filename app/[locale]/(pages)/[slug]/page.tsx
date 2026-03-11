@@ -10,6 +10,8 @@ import { BlocksContent } from "@strapi/blocks-react-renderer"
 import { ReactNode } from "react"
 import { Metadata } from "next"
 import { PartyBlock } from "@/components/blocks/political-party"
+import { LinkTree } from "@/components/blocks/LinksSection"
+import { cn } from "@/lib/utils"
 
 export const dynamic = 'force-static';
 
@@ -88,7 +90,7 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
   if (!blocks) return <></>
 
   return (
-    <div className="min-h-screen">
+    <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "")}>
       {blocks && blocks.map((block, index) => {
         switch (block.__component) {
           case 'blocks.image': {
@@ -119,6 +121,11 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
           case 'blocks.political-party': {
             
             return <PartyBlock key={index} {...block}  />
+          }
+          case 'blocks.link-section': {
+            return block.Links && (
+               <LinkTree key={block.id} Links={block.Links}/>
+              )
           }
           case 'blocks.note': {
             if (block.text == null) return null;

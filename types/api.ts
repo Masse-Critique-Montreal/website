@@ -92,6 +92,7 @@ export async function getPage(id: string, locale: 'en' | 'fr'): Promise<Data.Ent
         'populate[blocks][on][blocks.buttons][populate][buttons]=true',
         'populate[blocks][on][blocks.image][populate][image]=true',
         'populate[blocks][on][blocks.political-party][populate][image]=true',
+        'populate[blocks][on][blocks.link-section][populate][Links][populate][thumbnail]=true',
         `locale=${locale}`
     ].join('&');
 
