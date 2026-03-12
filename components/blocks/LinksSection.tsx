@@ -41,7 +41,7 @@ function LinkCard({ item }: { item: Data.Component<'blocks.link'> }) {
 function LinkCardBubbly({ item }: { item: Data.Component<'blocks.link'> }) {
     return (
       <a href={item.link || '#'} target="_blank" rel="noopener noreferrer" className="block group">
-        <Card className="shadow-[3px_5px_0px_0px_rgba(185,49,80,1))] transition-all duration-200 hover:bg-secondary/80 hover:shadow-[0px_0px_0px_0px_rgba(185,49,80,1))] hover:-translate-y-0.5 border-0 rounded-3xl bg-secondary m-4 my-2.5">
+        <Card className="shadow-[3px_5px_0px_0px_rgba(185,49,80,1))] transition-all duration-200 hover:bg-secondary/80 hover:shadow-[0px_0px_0px_0px_rgba(185,49,80,1))] hover:-translate-y-0.5 border-0 rounded-3xl bg-secondary m-4 my-2.5 py-1">
           <CardContent className="flex items-center gap-5 p-2 px-4">
             {item.thumbnail && <Avatar className="h-16 w-16 shrink-0 border-0 rounded-2xl">
               <AvatarImage src={uri.img(item.thumbnail ? item.thumbnail.url : item.thumbnail.formats.thumbnail.url)} alt={item.Label || 'Link thumbnail'} className="object-cover" />
