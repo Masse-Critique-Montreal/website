@@ -30,9 +30,17 @@ export function Navbar({ title, buttons, bgColor = "background" }: NavbarProps) 
     }
 
     return (
-        <nav className={`w-full px-8 sm:px-12 py-7 pb-0 ${bgClasses[bgColor]}`}>
-            <a href={`/`} className="cursor-pointer"><h1 className="font-sans max-w-24 font-semibold italic text-3xl">{title}</h1></a>
-            <div className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-4">
+        <nav className={`w-full px-8 sm:px-12 py-6 pb-0 ${bgClasses[bgColor]}`}>
+          {/* <h1 className="font-sans uppercase italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold leading-[1.05] mb-4 text-balance">
+            {title}
+          </h1> */}
+
+            <a href={`/`} className="cursor-pointer max-w-12 w-12">
+            <div className="max-w-12">
+                <h1 className="font-sans uppercase italic text-md sm:text-lg md:text-xl lg:text-xl xl:text-xl font-bold leading-[1.05] mb-0 text-balance">{title}</h1>
+                </div>
+                </a>
+            <div className="flex flex-wrap gap-2 sm:gap-3 py-5 sm:py-3">
                 {buttons && buttons.map((button, index) => (
                     (button.calendar_link) ? (
 
