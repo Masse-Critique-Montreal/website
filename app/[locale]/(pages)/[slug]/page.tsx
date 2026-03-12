@@ -12,12 +12,13 @@ import { Metadata } from "next"
 import { PartyBlock } from "@/components/blocks/political-party"
 import { LinkTree } from "@/components/blocks/LinksSection"
 import { cn } from "@/lib/utils"
+import { TelemetryProvider } from "@/lib/telemetry"
 
 export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
   const pages = await getPages();
-  if (pages == null ) return [];
+  if (pages == null) return [];
 
   return pages.map(page => ({
     slug: page.slug,
@@ -25,11 +26,11 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{slug:string, locale:'en'|'fr'}>}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: 'en' | 'fr' }> }): Promise<Metadata> {
 
   const { slug, locale } = await params;
   const response = await getPage(slug, locale);
-  
+
   if (response == null || response.seo == null) {
     throw new Error("SEO is undefined!");
   }
@@ -41,17 +42,17 @@ export async function generateMetadata({ params }: { params: Promise<{slug:strin
     width: image.width,
     height: image.height,
     alt: image.alternativeText || 'Masse Critique'
-  })): [];
+  })) : [];
 
   return {
     title: seo.title,
     description: seo.description,
     publisher,
     creator,
-    icons:[
-      { url: '/favicon_128.ico', sizes: '128x128'},
-      { url: '/favicon_256.ico', sizes: '256x256'},
-      { url: '/favicon_512.ico', sizes: '512x512'}
+    icons: [
+      { url: '/favicon_128.ico', sizes: '128x128' },
+      { url: '/favicon_256.ico', sizes: '256x256' },
+      { url: '/favicon_512.ico', sizes: '512x512' }
     ],
     openGraph: {
       type: 'website',
@@ -82,7 +83,7 @@ export async function generateMetadata({ params }: { params: Promise<{slug:strin
   }
 }
 
-export default async function Page({ params }: { params: Promise<{ slug:string, locale: 'en'|'fr' }> }) {
+export default async function Page({ params }: { params: Promise<{ slug: string, locale: 'en' | 'fr' }> }) {
   const { slug, locale } = await params;
   const response = await getPage(slug, locale);
   if (response === null) return <>{JSON.stringify(response)}<ClientT /></>
@@ -90,70 +91,76 @@ export default async function Page({ params }: { params: Promise<{ slug:string, 
   if (!blocks) return <></>
 
   return (
-    <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "")}>
-      {blocks && blocks.map((block, index) => {
-        switch (block.__component) {
-          case 'blocks.image': {
-            return <ImageBlock
-              key={index}
-              locale={locale}
-              src={uri.img(block.image ? block.image.url : '')}
-              info={block.pictureBy ? {
-                fullname: block.pictureBy || '',
-                link: block.pictureByLink || undefined,
-              } : undefined}
-              alt="Community gathering"
-              aspectRatio="wide"
-            />
-          }
-          case 'blocks.buttons': {
-            return <ButtonBlock
-              key={index}
-              bgColor={block.style || 'primary'}
-              buttons={block.buttons || []}
-            />
-          }
-          case 'blocks.text': {
-            return <ContentBlock key={index} bgColor={block.style || 'secondary'}>
-              <CustomBlocksRenderer variant={block.style || 'secondary'} content={block.content as BlocksContent} />
-            </ContentBlock>
-          }
-          case 'blocks.political-party': {
-            
-            return <PartyBlock key={index} {...block}  />
-          }
-          case 'blocks.link-section': {
-            return block.Links && (
-               <LinkTree key={block.id} Links={block.Links}/>
+    <>
+      <TelemetryProvider pageName={slug}>
+        <></>
+      </TelemetryProvider>
+      <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "")}>
+        {blocks && blocks.map((block, index) => {
+          switch (block.__component) {
+            case 'blocks.image': {
+              return <ImageBlock
+                key={index}
+                locale={locale}
+                src={uri.img(block.image ? block.image.url : '')}
+                info={block.pictureBy ? {
+                  fullname: block.pictureBy || '',
+                  link: block.pictureByLink || undefined,
+                } : undefined}
+                alt="Community gathering"
+                aspectRatio="wide"
+              />
+            }
+            case 'blocks.buttons': {
+              return <ButtonBlock
+                key={index}
+                bgColor={block.style || 'primary'}
+                buttons={block.buttons || []}
+              />
+            }
+            case 'blocks.text': {
+              return <ContentBlock key={index} bgColor={block.style || 'secondary'}>
+                <CustomBlocksRenderer variant={block.style || 'secondary'} content={block.content as BlocksContent} />
+              </ContentBlock>
+            }
+            case 'blocks.political-party': {
+
+              return <PartyBlock key={index} {...block} />
+            }
+            case 'blocks.link-section': {
+              return block.Links && (
+                <LinkTree key={block.id} Links={block.Links} />
               )
+            }
+            case 'blocks.note': {
+              if (block.text == null) return null;
+
+
+              const nodes: ReactNode[] = [];
+              block.text.forEach((para) => {
+                nodes.concat(para.children.map((elem, i: number) => {
+                  const e = elem as { code: boolean, text: string };
+                  if (e.code) return <span key={'elem' + i} className="text-secondary brightness-125">{e.text}</span>
+                  else return e.text;
+                }))
+              })
+
+              return <PhraseBlock
+                key={index}
+                text={
+                  <>
+                    {nodes}
+                  </>
+                }
+                className="font-normal"
+                bgColor={block.style || 'dark'}
+                shapes={block.shapes as SVGShape[]}
+              />
+            }
           }
-          case 'blocks.note': {
-            if (block.text == null) return null;
+        })}
+      </div>
+    </>
 
-
-            const nodes: ReactNode[] = [];
-            block.text.forEach((para) => {
-              nodes.concat(para.children.map((elem, i:number) => {
-                const e = elem as { code:boolean, text:string };
-                if (e.code) return <span key={'elem'+i} className="text-secondary brightness-125">{e.text}</span>
-                else return e.text;
-              }))
-            })
-
-            return <PhraseBlock
-              key={index}
-              text={
-                <>
-                  {nodes}
-                </>
-              }
-              className="font-normal"
-              bgColor={block.style || 'dark'}
-              shapes={block.shapes as SVGShape[]}
-            />
-          }
-        }
-      })}
-    </div>
   )
 }
