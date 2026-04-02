@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils"
 import { type BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer"
 import Link from "next/link"
-import { ButtonWVariant } from "./blocks/button-block"
 import { ContentBlockProps } from "./blocks/content-block"
 
 export default function CustomBlocksRenderer(props: { variant: ContentBlockProps['bgColor'], textSize?: string, content: BlocksContent }) {
@@ -40,7 +39,7 @@ export default function CustomBlocksRenderer(props: { variant: ContentBlockProps
     },
 
     'list-item': ({ children }) => (
-      <li className="font-sans text-sm leading-snug text-wrap">
+      <li className={cn("font-sans text-wrap", "leading-relaxed text-wrap", props.textSize || 'text-xl')}>
         {children}
       </li>
     ),
