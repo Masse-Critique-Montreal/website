@@ -33,13 +33,13 @@ export default function CustomBlocksRenderer(props: { variant: ContentBlockProps
 
     list: ({ children, format }) => {
       if (format === 'ordered') {
-        return <ol className="list-decimal list-inside my-3 space-y-2">{children}</ol>
+        return <ol className="list-decimal list-inside my-4 space-y-3 mx-6">{children}</ol>
       }
-      return <ul className="list-disc list-inside my-3 space-y-2">{children}</ul>
+      return <ul className="list-disc list-inside my-4 space-y-3 mx-6">{children}</ul>
     },
 
     'list-item': ({ children }) => (
-      <li className={cn("font-sans text-wrap", "leading-relaxed text-wrap", props.textSize || 'text-xl')}>
+      <li className={cn("font-sans text-wrap leading-snug", props.textSize || 'text-lg')}>
         {children}
       </li>
     ),
