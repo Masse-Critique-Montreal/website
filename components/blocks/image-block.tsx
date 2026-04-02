@@ -8,6 +8,7 @@ import {
   PopoverContent,
 } from "@/components/ui/popover"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 type InfoText = {
   fullname: string;
   link?: string;
@@ -16,7 +17,7 @@ type InfoText = {
 interface ImageBlockProps {
   src: string
   alt: string
-  aspectRatio?: "square" | "video" | "wide" | "portrait"
+  aspectRatio?: "square" | "video" | "wide" | "portrait"|"none"
   fullWidth?: boolean
   /** Optional info text shown in a tooltip on hover (desktop) or tap (mobile) */
   info?: (InfoText);
@@ -49,12 +50,12 @@ function InfoButton({ info, locale }: { info: InfoText, locale:string }) {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="flex h-7 w-7 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+          className="flex h-7 w-7 lg:h-9 lg:w-9 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
           aria-label="More information"
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
         >
-          <Info className="h-4 w-4" />
+          <Info className="h-4 w-4 lg:h-6 lg:w-6 text-gray-700" />
         </button>
       </PopoverTrigger>
       <PopoverContent
@@ -87,14 +88,15 @@ export function ImageBlock({
     video: "aspect-video",
     wide: "aspect-[21/9]",
     portrait: "aspect-[3/4]",
+    none: ""
   }
 
   return (
-    <section className="relative">
+    <section className={cn("relative", !fullWidth ? "lg:m-4" : "")}>
       <div
         className={`relative w-full overflow-hidden after:absolute after:inset-0 after:bg-secondary/5 ${fullWidth
-          ? "h-[36vh] sm:h-auto sm:max-h-[60vh]"
-          : aspectClasses[aspectRatio]
+          ? ("sm:h-auto h-[36vh] sm:max-h-[60vh]")
+          : (aspectClasses[aspectRatio])
           }`}
       >
         <img

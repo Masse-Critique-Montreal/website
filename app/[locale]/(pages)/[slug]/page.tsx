@@ -95,7 +95,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
       <TelemetryProvider pageName={slug}>
         <></>
       </TelemetryProvider>
-      <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "")}>
+      <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : "")}>
         {blocks && blocks.map((block, index) => {
           switch (block.__component) {
             case 'blocks.image': {
@@ -107,8 +107,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
                   fullname: block.pictureBy || '',
                   link: block.pictureByLink || undefined,
                 } : undefined}
+                fullWidth={block.type !== "photography"}
                 alt="Community gathering"
-                aspectRatio="wide"
+                aspectRatio={block.type === "photography" ? "none" : "wide"}
               />
             }
             case 'blocks.buttons': {
