@@ -102,7 +102,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
               return <ImageBlock
                 key={index}
                 locale={locale}
-                src={uri.img(block.image ? block.image.url : '')}
+                src={uri.img(
+                  block.image ? (
+                    block.image.formats.large.url || block.image.url 
+                    //slug === "photos" ? (block.image.formats.large.url || block.image.url) : block.image.url
+                  ) : ''
+                )}
                 info={block.pictureBy ? {
                   fullname: block.pictureBy || '',
                   link: block.pictureByLink || undefined,
