@@ -136,7 +136,6 @@ const TelemetryContext = createContext<TelemetryAPI | null>(null);
 
 export interface TelemetryProviderProps {
   pageName?: string;
-  children: React.ReactNode;
 }
 
 /**
@@ -148,7 +147,7 @@ export interface TelemetryProviderProps {
  *   <PricingPage />
  * </TelemetryProvider>
  */
-export function TelemetryProvider({ pageName, children }: TelemetryProviderProps) {
+export function TelemetryProvider({ pageName }: TelemetryProviderProps) {
   const api = useTelemetry();
   const [hitBottom, setHitBottom] = useState(false);
 
@@ -177,9 +176,7 @@ export function TelemetryProvider({ pageName, children }: TelemetryProviderProps
   }, [hitBottom]);
 
   return (
-    <TelemetryContext.Provider value={api}>
-      {children}
-    </TelemetryContext.Provider>
+    <TelemetryContext.Provider value={api}></TelemetryContext.Provider>
   );
 }
 
@@ -193,6 +190,6 @@ export function TelemetryProvider({ pageName, children }: TelemetryProviderProps
  */
 export function useTelemetryContext(): TelemetryAPI {
   const ctx = useContext(TelemetryContext);
-  if (!ctx) throw new Error("useTelemetryContext must be used inside <TelemetryProvider>");
+  if (!ctx) throw new Error("useTelemetryContext must be used inside <TelemetryProvider>, add a children prop to the TelemetryProvider. For now no children is used.");
   return ctx;
 }

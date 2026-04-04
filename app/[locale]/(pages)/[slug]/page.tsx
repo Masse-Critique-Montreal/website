@@ -92,9 +92,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
 
   return (
     <>
-      <TelemetryProvider pageName={slug}>
-        <></>
-      </TelemetryProvider>
+      <TelemetryProvider pageName={slug}/>
       <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : "")}>
         {blocks && blocks.map((block, index) => {
           switch (block.__component) {

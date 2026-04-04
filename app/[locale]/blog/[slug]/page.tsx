@@ -183,9 +183,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
     return (
         <>
-            <TelemetryProvider pageName={slug}>
-                <></>
-            </TelemetryProvider>
+            <TelemetryProvider pageName={slug}/>
             <NavbarSmall
                 title={'Masse Critique Montréal'}
                 pageTitle=""
