@@ -24,7 +24,7 @@ export function PostCard({ post, locale }: PostCardProps) {
                 {/* Thumbnail */}
                 <div className="overflow-hidden rounded-lg bg-muted">
                     <Image
-                        src={`${process.env.NEXT_PUBLIC_HOST}${post.image ? (post.image.formats.medium.url || post.image.url) : ''}`}
+                        src={`${process.env.NEXT_PUBLIC_HOST}${post.image ? ((post.image.formats.medium ? post.image.formats.medium.url : post.image.url) || post.image.url) : ''}`}
                         alt={post.title || 'Article Picture'}
                         width={720}
                         height={400}
