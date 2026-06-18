@@ -55,9 +55,9 @@ export default function DecorativeImages() {
         },
         {
             src: "/phil_two_on_a_bike.png",
-            top: 550,
+            top: 545,
             right: 0,
-            scale: 0.55,
+            scale: 0.45,
             factor: -1.2,
             desktopOffset: [0, 0]
         },
