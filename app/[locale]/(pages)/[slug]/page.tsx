@@ -13,6 +13,8 @@ import { PartyBlock } from "@/components/blocks/political-party"
 import { LinkTree } from "@/components/blocks/LinksSection"
 import { cn } from "@/lib/utils"
 import { TelemetryProvider } from "@/lib/telemetry"
+import NextLastFriday from "@/components/NextLastFriday"
+import FloatingDecorations from "@/components/FloatingDecorations"
 
 export const dynamic = 'force-static';
 
@@ -83,17 +85,47 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+function insertEvery(arr, item, interval) {
+  const result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+      result.push(arr[i]);
+
+      if ((i + 1) % interval === 0 && i !== arr.length - 1) {
+          result.push(item);
+      }
+  }
+
+  return result;
+}
+
 export default async function Page({ params }: { params: Promise<{ slug: string, locale: 'en' | 'fr' }> }) {
   const { slug, locale } = await params;
   const response = await getPage(slug, locale);
   if (response === null) return <>{JSON.stringify(response)}<ClientT /></>
-  const { blocks } = response;
+  let { blocks } = response;
   if (!blocks) return <></>
+
+
+  const theme = {
+      'default': cn("min-h-screen", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : ""),
+      'accent': cn("min-h-screen", "bg-accent", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : ""),
+      'kids': cn("min-h-screen", "bg-[#fdfdfd]", "lg:mx-auto lg:w-1/2"),
+  }
+
 
   return (
     <>
       <TelemetryProvider pageName={slug}/>
-      <div className={cn("min-h-screen", response.background === "accent" ? "bg-accent" : "", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : "")}>
+      {
+        response.background === 'kids' ? (
+          <>
+          <FloatingDecorations/>
+          
+          </>
+        ) : <></>
+      }
+      <div className={theme[response.background || 'default'] + ' overflow-x-hidden'}>
         {blocks && blocks.map((block, index) => {
           switch (block.__component) {
             case 'blocks.image': {
@@ -124,7 +156,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
             }
             case 'blocks.text': {
               return <ContentBlock key={index} bgColor={block.style || 'secondary'}>
-                <CustomBlocksRenderer variant={block.style || 'secondary'} content={block.content as BlocksContent} />
+                <CustomBlocksRenderer variant={block.style || 'secondary'} content={(block.content||[]) as BlocksContent} />
               </ContentBlock>
             }
             case 'blocks.political-party': {
@@ -138,17 +170,21 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
             }
             case 'blocks.note': {
               if (block.text == null) return null;
-
-
-              const nodes: ReactNode[] = [];
-              block.text.forEach((para) => {
-                nodes.concat(para.children.map((elem, i: number) => {
+              let nodes: ReactNode[] = [];
+              block.text.forEach((para, j) => {
+                nodes = nodes.concat(para.children.map((elem, i: number) => {
                   const e = elem as { code: boolean, text: string };
-                  if (e.code) return <span key={'elem' + i} className="text-secondary brightness-125">{e.text}</span>
-                  else return e.text;
+  
+                  if (e.code && e.text.includes("[next-last-friday]")) 
+                    return <NextLastFriday key={'elem' + i} locale={locale} text={e.text}/>;
+  
+                  if (e.code) 
+                    return <span key={'elem' + i} className="text-secondary brightness-125">{e.text}</span>
+                  
+                  return e.text;
                 }))
+                nodes.push(<br key={'line-break_' + j} className="inline sm:hidden" />)
               })
-
               return <PhraseBlock
                 key={index}
                 text={
@@ -156,7 +192,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
                     {nodes}
                   </>
                 }
-                className="font-normal"
+                className={response.background==='kids' ? cn(
+                  index % 2 ? "rotate-6":"-rotate-6",
+                  "lg:!text-xl md:!text-3xl sm:!text-xl text-sm! text-nowrap p-1 m-1 float-end"
+                ):"font-normal" }
                 bgColor={block.style || 'dark'}
                 shapes={block.shapes as SVGShape[]}
               />

@@ -39,7 +39,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`font-sans ${GeistSans.variable} ${cooperBLack.variable} ${libreFranklin.variable}`}>
+      <body className={`overflow-x-hidden font-sans ${GeistSans.variable} ${cooperBLack.variable} ${libreFranklin.variable}`}>
         {children}
       </body>
     </html>

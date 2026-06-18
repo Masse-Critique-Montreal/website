@@ -10,7 +10,7 @@ export interface SVGShape {
 interface PhraseBlockProps {
   className?:string,
   text: string | ReactNode;
-  bgColor?: "primary" | "secondary" | "accent" | "background" | "dark"
+  bgColor?: "primary" | "secondary" | "accent" | "background" | "dark" | "kids"
   shapes?: SVGShape[]
 }
 
@@ -20,7 +20,8 @@ export function PhraseBlock({  className, text, bgColor = "background", shapes =
     secondary: "bg-secondary text-secondary-foreground",
     accent: "bg-accent text-accent-foreground",
     background: "bg-background text-foreground",
-    dark: 'bg-primary-foreground text-white'
+    dark: 'bg-primary-foreground text-white',
+    kids: 'bg-transparent text-[var(--kids-primary)] px-7! py-3!'
   }
 
   const colorClasses = {

@@ -115,9 +115,7 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
   
   return (
     <>
-      <TelemetryProvider pageName="home">
-        <></>
-      </TelemetryProvider>
+      <TelemetryProvider pageName="home"/>
       <div className="min-h-screen">
       {response.Blocks && response.Blocks.map((block, index) => {
         switch (block.__component) {

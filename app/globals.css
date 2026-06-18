@@ -42,6 +42,9 @@
   --font-sans: "Libre Franklin", "Libre Franklin Fallback";
   --font-libre-franklin: "Libre Franklin", "Libre Franklin Fallback";
   --font-cooper-black: "Cooper Black", "Cooper Black Std Fallback";
+
+
+  --kids-primary: #1923ff;
 }
 
 .dark {
@@ -77,6 +80,9 @@
   --sidebar-accent-foreground: oklch(1 0 0);
   --sidebar-border: oklch(0.98 0 0);
   --sidebar-ring: oklch(0.98 0 0);
+
+
+  --kids-primary: #1923ff;
 }
 
 @theme inline {

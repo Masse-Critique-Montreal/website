@@ -10,7 +10,7 @@ export function ContentBlock({ children, bgColor = "white" }: ContentBlockProps)
         secondary: "bg-secondary text-secondary-foreground",
         accent: "bg-accent text-accent-foreground",
         dark: "bg-dark text-dark-foreground",
-        white: "bg-background text-foreground",
+        white: "bg-transparent text-foreground py-2!",
     }
 
     return (

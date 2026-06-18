@@ -94,7 +94,7 @@ export function ImageBlock({
   return (
     <section className={cn("relative", !fullWidth ? "lg:m-4" : "")}>
       <div
-        className={`relative w-full overflow-hidden after:absolute after:inset-0 after:bg-secondary/5 ${fullWidth
+        className={`relative w-full overflow-hidden after:absolute after:inset-0  ${fullWidth
           ? ("sm:h-auto h-[36vh] sm:max-h-[60vh]")
           : (aspectClasses[aspectRatio])
           }`}
