@@ -43,7 +43,7 @@ export default function DecorativeImages() {
             left: -20,
             scale: 0.52,
             factor: 3,
-            desktopOffset: [60, 160]
+            desktopOffset: [60, 140]
         },
         {
             src: "/phil_cardinal.png",
@@ -51,15 +51,15 @@ export default function DecorativeImages() {
             left: 66,
             scale: 0.28,
             factor: -2.2,
-            desktopOffset: [130, 600],
+            desktopOffset: [10, 550],
         },
         {
             src: "/phil_two_on_a_bike.png",
             top: 545,
             right: 0,
-            scale: 0.45,
+            scale: 0.52,
             factor: -1.2,
-            desktopOffset: [0, 0]
+            desktopOffset: [0, -190]
         },
     ];
 
