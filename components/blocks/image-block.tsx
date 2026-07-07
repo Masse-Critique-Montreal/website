@@ -18,15 +18,15 @@ type InfoText = {
 interface ImageBlockProps {
   src: string
   alt: string
-  aspectRatio?: "square" | "video" | "wide" | "portrait"|"none"
+  aspectRatio?: "square" | "video" | "wide" | "portrait" | "none"
   fullWidth?: boolean
   /** Optional info text shown in a tooltip on hover (desktop) or tap (mobile) */
   info?: (InfoText);
-  locale:string
-
+  locale: string;
+  priority: boolean;
 }
 
-function InfoButton({ info, locale }: { info: InfoText, locale:string }) {
+function InfoButton({ info, locale }: { info: InfoText, locale: string }) {
   const [open, setOpen] = useState(false)
   const hoverTimeout = useRef<ReturnType<typeof setTimeout>>(null)
 
@@ -82,7 +82,7 @@ export function ImageBlock({
   aspectRatio = "video",
   info,
   locale,
-  fullWidth = true,
+  fullWidth = false,
   priority = false,
 }: ImageBlockProps) {
   const aspectClasses = {
@@ -96,20 +96,29 @@ export function ImageBlock({
   return (
     <section className={cn("relative", !fullWidth ? "lg:m-4" : "")}>
       <div
-        className={`relative w-full overflow-hidden after:absolute after:inset-0 ${
-          fullWidth
-            ? "h-[36vh]"
+        className={`relative w-full overflow-hidden after:absolute after:inset-0 ${fullWidth
+            ? `h-[36vh] sm:h-auto sm:${aspectClasses[aspectRatio]}`
             : aspectClasses[aspectRatio]
-        }`}
+          }`}
       >
-        <Image
+        {fullWidth ? <Image
           src={src || "/placeholder.svg"}
           alt={alt || ""}
           fill
           sizes="100vw"
           priority={priority}
           className="object-cover"
-        />
+        />:
+
+        <img
+          src={src || "/placeholder.svg"}
+          alt={alt}
+          className={`w-full ${fullWidth
+            ? "h-full object-cover"
+            : "h-full object-cover"
+            }`}
+        />}
+
       </div>
 
       {info && (
