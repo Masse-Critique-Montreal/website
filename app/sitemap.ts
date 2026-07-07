@@ -58,6 +58,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 },
             },
         },
+        {
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/fr/blog`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.8,
+            alternates: {
+                languages: {
+                    fr: `${process.env.NEXT_PUBLIC_SITE_URL}/fr/blog`,
+                    en: `${process.env.NEXT_PUBLIC_SITE_URL}/en/blog`,
+                    'x-default': `${process.env.NEXT_PUBLIC_SITE_URL}/fr/blog`,
+                },
+            },
+        },
         ...pageSitemap as any[],
         ...articlesSitemap as any[]
     ]
