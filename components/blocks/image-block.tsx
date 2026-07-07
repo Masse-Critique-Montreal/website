@@ -97,27 +97,27 @@ export function ImageBlock({
     <section className={cn("relative", !fullWidth ? "lg:m-4" : "")}>
       <div
         className={`relative w-full overflow-hidden after:absolute after:inset-0 ${fullWidth
-            ? `h-[36vh] sm:h-auto sm:${aspectClasses[aspectRatio]}`
-            : aspectClasses[aspectRatio]
+          ? `h-[36vh] sm:h-auto sm:${aspectClasses[aspectRatio]}`
+          : aspectClasses[aspectRatio]
           }`}
       >
-        {!fullWidth ? <Image
+        {aspectRatio === 'none' && fullWidth ? <Image
           src={src || "/placeholder.svg"}
           alt={alt || ""}
           fill
           sizes="100vw"
           priority={priority}
           className="object-cover"
-        />:
+        /> :
 
-        <img
-          src={src || "/placeholder.svg"}
-          alt={alt}
-          className={`w-full ${fullWidth
-            ? "h-full object-cover"
-            : "h-full object-cover"
-            }`}
-        />}
+          <img
+            src={src || "/placeholder.svg"}
+            alt={alt}
+            className={`w-full ${fullWidth
+              ? "h-full object-cover"
+              : "h-full object-cover"
+              }`}
+          />}
 
       </div>
 
