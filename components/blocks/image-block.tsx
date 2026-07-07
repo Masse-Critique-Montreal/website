@@ -82,7 +82,7 @@ export function ImageBlock({
   aspectRatio = "video",
   info,
   locale,
-  fullWidth = false,
+  fullWidth = true,
   priority = false,
 }: ImageBlockProps) {
   const aspectClasses = {
@@ -101,7 +101,7 @@ export function ImageBlock({
             : aspectClasses[aspectRatio]
           }`}
       >
-        {fullWidth ? <Image
+        {!fullWidth ? <Image
           src={src || "/placeholder.svg"}
           alt={alt || ""}
           fill
