@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState, useCallback, useRef, Fragment } from "react"
 import { Info } from "lucide-react"
 import {
@@ -82,38 +83,40 @@ export function ImageBlock({
   info,
   locale,
   fullWidth = true,
+  priority = false,
 }: ImageBlockProps) {
   const aspectClasses = {
     square: "aspect-square",
     video: "aspect-video",
     wide: "aspect-[21/9]",
     portrait: "aspect-[3/4]",
-    none: ""
+    none: "",
   }
 
   return (
     <section className={cn("relative", !fullWidth ? "lg:m-4" : "")}>
       <div
-        className={`relative w-full overflow-hidden after:absolute after:inset-0  ${fullWidth
-          ? ("sm:h-auto h-[36vh] sm:max-h-[60vh]")
-          : (aspectClasses[aspectRatio])
-          }`}
+        className={`relative w-full overflow-hidden after:absolute after:inset-0 ${
+          fullWidth
+            ? "h-[36vh]"
+            : aspectClasses[aspectRatio]
+        }`}
       >
-        <img
+        <Image
           src={src || "/placeholder.svg"}
-          alt={alt}
-          className={`w-full ${fullWidth
-            ? "h-full object-cover"
-            : "h-full object-cover"
-            }`}
+          alt={alt || ""}
+          fill
+          sizes="100vw"
+          priority={priority}
+          className="object-cover"
         />
-
       </div>
-        {info && (
-          <div className="absolute bottom-4 left-4">
-            <InfoButton info={info} locale={locale} />
-          </div>
-        )}
+
+      {info && (
+        <div className="absolute bottom-4 left-4">
+          <InfoButton info={info} locale={locale} />
+        </div>
+      )}
     </section>
   )
 }
