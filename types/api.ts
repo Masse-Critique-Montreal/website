@@ -82,6 +82,24 @@ export async function getPages(opt: Record<string, any> = {}): Promise<Data.Enti
     )).data
 }
 
+export async function getBlogBrowser(locale: string, opt: Record<string, any> = {}): Promise<Data.Entity<'api::blog-browser.blog-browser'> | null> {
+    const query = [
+        `locale=${locale}`,
+        'populate[image]=true'
+    ].join('&')
+    return (await (fetch(`${process.env.HOST}/api/blog-browser?${query}`, {
+        method: 'GET',
+        cache: 'no-cache',
+        ...opt
+    })
+        .then(r => r.json())
+        .then(r => {
+            return r
+        })
+    )).data
+}
+
+
 export async function getPage(id: string, locale: 'en' | 'fr'): Promise<Data.Entity<'api::page.page'> | null> {
 
     const query = [
