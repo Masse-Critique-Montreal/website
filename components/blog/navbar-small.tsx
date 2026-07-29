@@ -42,7 +42,7 @@ export function NavbarSmall({ title, pageTitle, buttons, bgColor = "background" 
                     </h1>
                 </div>
             </a>
-            <div className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-4">
+            {/* <div className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-4">
                 {buttons && buttons.map((button, index) => (
                     (button.calendar_link) ? (
 
@@ -63,7 +63,7 @@ export function NavbarSmall({ title, pageTitle, buttons, bgColor = "background" 
                     )
                 ))}
 
-            </div>
+            </div> */}
             <div className="sm:mx-1 mx-4">
                 <h1 className="font-sans italic sm:text-3xl text-2xl align-middle font-bold leading-[1.05] mb-1 text-balance">
                     {pageTitle}
