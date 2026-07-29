@@ -1,21 +1,28 @@
 
+import { AppSidebar } from "@/components/app-sidebar";
 import { Footer } from "@/components/blocks/footer"
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { getNavbar } from "@/types/api";
 
 export default async function SiteLayout({
   params,
   children
 }: {
-  params: Promise<{locale:string}>
+  params: Promise<{ locale: string }>
   children: React.ReactNode;
 }) {
-
   const { locale } = await params;
-  console.log('LOCALE', locale)
+  const navbarData = await getNavbar(locale as 'en'|'fr');
 
   return (
     <>
-      {children}
-      <Footer mode="site" locale={locale}/>
+      <SidebarProvider>
+        <AppSidebar buttons={navbarData?.buttons}/>
+
+        {children}
+
+        <Footer mode="site" locale={locale} />
+      </SidebarProvider>
     </>
   )
 }

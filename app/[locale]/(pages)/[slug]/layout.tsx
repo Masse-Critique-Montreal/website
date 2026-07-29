@@ -36,7 +36,7 @@ export default async function Layout({ children, params }: PropsWithChildren<{ p
                     buttons={(navbarData.buttons || []).map(b => ({ ...b, variant: (b.href || '').endsWith(slug) ? 'black' : 'outline' }))}
                 />
             )}
-            <main className=''>
+            <main>
                 {children}
             </main>
 

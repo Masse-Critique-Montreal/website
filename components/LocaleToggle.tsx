@@ -2,7 +2,7 @@
 
 export default function LocaleToggle({locale}:{locale: 'en'|'fr'}) {
     return (
-      <div className="absolute top-6 left-6 flex gap-1">
+      <div className="flex gap-1">
         <button
           onClick={() => {
             document.location.href = '/fr'
