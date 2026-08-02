@@ -75,11 +75,11 @@ function InfoButton({ info, locale }: { info: InfoText, locale: string }) {
               ) : info.fullname
             }
           </div>
-          <p className="text-xs text-gray-500">{info.date && new Date(info.date).toLocaleDateString(locale, {
+          {info.date && <p className="text-xs text-gray-500">{new Date(info.date).toLocaleDateString(locale, {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
-          })}</p>
+          })}</p>}
         </div>
       </PopoverContent>
     </Popover>
