@@ -85,20 +85,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-function insertEvery(arr, item, interval) {
-  const result = [];
-
-  for (let i = 0; i < arr.length; i++) {
-      result.push(arr[i]);
-
-      if ((i + 1) % interval === 0 && i !== arr.length - 1) {
-          result.push(item);
-      }
-  }
-
-  return result;
-}
-
 export default async function Page({ params }: { params: Promise<{ slug: string, locale: 'en' | 'fr' }> }) {
   const { slug, locale } = await params;
   const response = await getPage(slug, locale);
@@ -110,7 +96,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
   const theme = {
       'default': cn("min-h-screen", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : ""),
       'accent': cn("min-h-screen", "bg-accent", slug === "photos" ? "lg:mx-auto lg:w-1/2 " : ""),
-      'kids': cn("min-h-screen", "bg-[#fdfdfd]", "lg:mx-auto lg:w-1/2"),
+      'kids': cn("min-h-screen", "bg-[#fdfdfd] text-[var(--kids-primary)]", "lg:mx-auto lg:w-1/2"),
   }
 
 
@@ -141,6 +127,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string,
                 info={block.pictureBy ? {
                   fullname: block.pictureBy || '',
                   link: block.pictureByLink || undefined,
+                  date: block.date || undefined
                 } : undefined}
                 fullWidth={block.type !== "photography"}
                 alt="Community gathering"

@@ -135,7 +135,9 @@ export default async function HomePage({ params }: { params: Promise<{locale:'en
               info={block.pictureBy ? {
                 fullname: block.pictureBy || '',
                 link: block.pictureByLink || undefined,
+                date: block.date || undefined
               } : undefined}
+              
               alt="Community gathering"
               aspectRatio="wide"
             />

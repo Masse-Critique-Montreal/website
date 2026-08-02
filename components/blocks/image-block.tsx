@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 type InfoText = {
   fullname: string;
   link?: string;
+  date: Date;
 }
 
 interface ImageBlockProps {
@@ -66,11 +67,20 @@ function InfoButton({ info, locale }: { info: InfoText, locale: string }) {
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
       >
-        {locale === 'en' ? 'Picture by ' : 'Photo par '} {
-          info.link ? (
-            <Link className="underline font-semibold text-secondary" href={info.link}>{info.fullname}</Link>
-          ) : info.fullname
-        }
+        <div className="flex flex-col gap-1">
+          <div>
+            {locale === 'en' ? 'Picture by ' : 'Photo par '} {
+              info.link ? (
+                <Link className="underline font-semibold text-secondary" href={info.link}>{info.fullname}</Link>
+              ) : info.fullname
+            }
+          </div>
+          <p className="text-xs text-gray-500">{info.date && new Date(info.date).toLocaleDateString(locale, {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          })}</p>
+        </div>
       </PopoverContent>
     </Popover>
   )
