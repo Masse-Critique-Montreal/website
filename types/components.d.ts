@@ -33,6 +33,7 @@ export interface BlocksImage extends Struct.ComponentSchema {
     icon: 'picture';
   };
   attributes: {
+    date: Schema.Attribute.Date;
     image: Schema.Attribute.Media<'images' | 'files'>;
     pictureBy: Schema.Attribute.String;
     pictureByLink: Schema.Attribute.String;
