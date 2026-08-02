@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   /* Flat, vibrant color scheme inspired by Critical Mass Brussels */
   --background: oklch(0.98 0.01 106); /* Off-white with slight warmth */
@@ -47,43 +45,6 @@
   --kids-primary: #1923ff;
 }
 
-.dark {
-  --background: oklch(0.15 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.2 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.2 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.95 0.25 110);
-  --primary-foreground: oklch(0.15 0 0);
-  --secondary: oklch(0.55 0.2 145);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.65 0.24 25);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.6 0.25 15);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.98 0 0);
-  --input: oklch(0.98 0 0);
-  --ring: oklch(0.98 0 0);
-  --chart-1: oklch(0.95 0.25 110);
-  --chart-2: oklch(0.55 0.2 145);
-  --chart-3: oklch(0.65 0.24 25);
-  --chart-4: oklch(0.7 0.25 265);
-  --chart-5: oklch(0.75 0.2 200);
-  --sidebar: oklch(0.15 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.95 0.25 110);
-  --sidebar-primary-foreground: oklch(0.15 0 0);
-  --sidebar-accent: oklch(0.55 0.2 145);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.98 0 0);
-  --sidebar-ring: oklch(0.98 0 0);
-
-
-  --kids-primary: #1923ff;
-}
 
 @theme inline {
   /* Updated font-sans to use Libre Franklin variable */
